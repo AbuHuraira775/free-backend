@@ -3,6 +3,7 @@ const app = express()
 const authRouter = require('./router/auth-router')
 const contactRouter = require('./router/contact-route')
 const adminRouter = require('./router/admin-router')
+const committeeAdminRouter = require('./router/committee/admin-router') 
 const PORT = 3000
 const cors = require('cors')
 const connectDB = require('./util/db')
@@ -21,14 +22,16 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 //middleware allow to use json data
-
+//practice router 
 app.use('/api/auth', authRouter)
 app.use('/api/committee', contactRouter)
 app.use('/api/admin', adminRouter)
 
+//committee routes 
+app.use('/api/committee/admin', committeeAdminRouter)
 
 app.use(errorMiddleware)
 
 connectDB().then(() => {
-    app.listen(process.env.PORT, () => console.log("Server is running on the PORT " + process.env.PORT))
+    app.listen(process.env.PORT, () => console.log("Server is running on the PORT http://localhost:" + process.env.PORT))
 })
